@@ -7,9 +7,13 @@ PHONE_REGEX = re.compile(r'^\+?[0-9\s\-\(\)]{7,15}$')
 PHONE_10_DIGIT_REGEX = re.compile(r'^[6-9]\d{9}$') # Standard 10-digit mobile
 NAME_REGEX = re.compile(r'^[A-Z][a-z]+(\s+[A-Z][a-z]+)+$')
 
+presidio_engine = None
+# Safe presidio initialization without automatic subprocess pip install
 try:
-    from presidio_analyzer import AnalyzerEngine
-    presidio_engine = AnalyzerEngine()
+    import spacy
+    if spacy.util.is_package("en_core_web_sm"):
+        from presidio_analyzer import AnalyzerEngine
+        presidio_engine = AnalyzerEngine()
 except Exception:
     presidio_engine = None
 
