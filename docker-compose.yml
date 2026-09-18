@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: flyyy_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_secret_password}
+      MYSQL_DATABASE: ${DB_NAME:-flyyy_cdp}
+      MYSQL_USER: ${DB_USER:-cdp_admin}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-cdp_secret_password}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: flyyy_mailpit
+    restart: unless-stopped
+    ports:
+      - "8025:8025" # Web UI
+      - "1025:1025" # SMTP server
+
+volumes:
+  mysqldata:
+
