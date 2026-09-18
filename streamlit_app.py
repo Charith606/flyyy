@@ -44,34 +44,204 @@ init_db()
 
 # Page configuration
 st.set_page_config(
-    page_title="Flyyy CDP | Privacy-Preserving Platform",
+    page_title="Flyyy CDP • Privacy-Preserving Data Platform",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Custom CSS for modern dark UI styling
+# Premium Modern Dark SaaS CSS Theme
 st.markdown(
     """
     <style>
-    /* Metric styling */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    html, body, [class*="css"] {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    code, pre, .mono {
+        font-family: 'JetBrains Mono', monospace !important;
+    }
+
+    /* Background and containers */
+    .stApp {
+        background-color: #0B0F19;
+        color: #F1F5F9;
+    }
+
+    /* Sidebar Styling */
+    section[data-testid="stSidebar"] {
+        background-color: #0F172A;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    /* Modern Navigation Items (Custom Radio styling) */
+    div[data-testid="stRadio"] > div {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    div[data-testid="stRadio"] > div > label {
+        background: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 10px;
+        padding: 10px 14px;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 0;
+        width: 100%;
+        color: #94A3B8;
+        font-size: 0.88rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+    
+    div[data-testid="stRadio"] > div > label:hover {
+        background: rgba(51, 65, 85, 0.8);
+        border-color: rgba(56, 189, 248, 0.4);
+        color: #F8FAFC;
+        transform: translateX(4px);
+    }
+    
+    /* Hide the ugly native radio circle */
+    div[data-testid="stRadio"] > div > label > div:first-child {
+        display: none !important;
+    }
+    
+    /* Active Selected Radio Item */
+    div[data-testid="stRadio"] > div > label:has(input:checked) {
+        background: linear-gradient(90deg, rgba(16, 185, 129, 0.2), rgba(15, 23, 42, 0.8)) !important;
+        border: 1px solid rgba(16, 185, 129, 0.6) !important;
+        border-left: 4px solid #10B981 !important;
+        color: #34D399 !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+    }
+
+    /* Metric Card Styling */
+    div[data-testid="stMetric"] {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 16px 20px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(10px);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    div[data-testid="stMetric"]:hover {
+        transform: translateY(-2px);
+        border-color: rgba(56, 189, 248, 0.4);
+    }
     div[data-testid="stMetricValue"] {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #10b981;
+        font-size: 2rem !important;
+        font-weight: 800 !important;
+        background: linear-gradient(135deg, #34D399, #38BDF8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
     div[data-testid="stMetricLabel"] {
-        font-size: 0.85rem;
+        font-size: 0.78rem !important;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: #94a3b8;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+        color: #94A3B8 !important;
     }
-    .hero-box {
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.6));
-        border: 1px solid rgba(51, 65, 85, 0.8);
-        border-radius: 12px;
-        padding: 20px;
+
+    /* Hero / Feature Cards */
+    .hero-container {
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        border-radius: 16px;
+        padding: 24px;
         margin-bottom: 24px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+        position: relative;
+        overflow: hidden;
+    }
+    .hero-container::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, #10B981, #38BDF8, #8B5CF6);
+    }
+
+    .card-box {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 18px;
+        transition: all 0.2s ease;
+    }
+    .card-box:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Status Badges */
+    .badge-live {
+        background: rgba(16, 185, 129, 0.15);
+        color: #34D399;
+        border: 1px solid rgba(16, 185, 129, 0.4);
+        padding: 4px 10px;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .badge-live::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background-color: #34D399;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #34D399;
+    }
+    .badge-fpe {
+        background: rgba(56, 189, 248, 0.15);
+        color: #38BDF8;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+    }
+    .badge-token {
+        background: rgba(168, 85, 247, 0.15);
+        color: #C084FC;
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+    }
+
+    /* Buttons */
+    .stButton > button {
+        border-radius: 10px;
+        font-weight: 600;
+        padding: 8px 18px;
+        transition: all 0.2s ease;
+    }
+    .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, #10B981, #059669);
+        border: none;
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+    .stButton > button[kind="primary"]:hover {
+        background: linear-gradient(135deg, #34D399, #10B981);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+        transform: translateY(-1px);
+    }
+
+    /* Dataframe table rounded borders */
+    div[data-testid="stDataFrame"] {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        overflow: hidden;
     }
     </style>
     """,
@@ -92,16 +262,27 @@ def get_counts():
 
 # --- SIDEBAR ---
 with st.sidebar:
-    st.markdown("## 🛡️ **Flyyy CDP**")
-    st.caption("Privacy-Preserving Customer Data Platform")
     st.markdown(
         """
-        > *Protected by Default. Reveal or Use Plaintext Only by Exception.*
-        """
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+            <div style="font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, #38BDF8, #10B981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                🛡️ Flyyy CDP
+            </div>
+            <span class="badge-live">LIVE</span>
+        </div>
+        <div style="font-size: 0.78rem; color: #94A3B8; margin-bottom: 16px;">
+            Privacy-Preserving Customer Data Platform
+        </div>
+        <div style="background: rgba(15, 23, 42, 0.6); border-left: 3px solid #38BDF8; padding: 10px 12px; border-radius: 6px; font-size: 0.75rem; color: #CBD5E1; margin-bottom: 20px; font-style: italic;">
+            "Protected by Default. Reveal or Use Plaintext Only by Exception."
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
-    st.divider()
 
-    # Navigation menu
+    st.markdown("<div style='font-size:0.75rem; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;'>NAVIGATION</div>", unsafe_allow_html=True)
+    
+    # Modern Navigation Radio (CSS styled as buttons)
     selected_tab = st.radio(
         "Navigation",
         [
@@ -114,41 +295,49 @@ with st.sidebar:
             "📜 6. Compliance Audit Trail",
         ],
         index=0,
+        label_visibility="collapsed",
     )
 
-    st.divider()
-    st.markdown("### 🛠️ Quick Actions")
+    st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.75rem; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;'>QUICK ACTIONS</div>", unsafe_allow_html=True)
 
-    col_seed1, col_seed2 = st.columns(2)
-    with col_seed1:
-        seed_count = st.number_input("Seed Count", min_value=10, max_value=200, value=50, step=10)
-    with col_seed2:
-        st.write("")
-        st.write("")
-        if st.button("🌱 Seed Data", use_container_width=True):
-            with st.spinner("Seeding source customers..."):
-                seed_source_database(int(seed_count))
-                st.success(f"Seeded {seed_count} records!")
-                st.rerun()
+    with st.container():
+        col_seed1, col_seed2 = st.columns([1, 1])
+        with col_seed1:
+            seed_count = st.number_input("Records", min_value=10, max_value=200, value=50, step=10, label_visibility="collapsed")
+        with col_seed2:
+            if st.button("🌱 Seed Data", use_container_width=True, type="primary"):
+                with st.spinner("Seeding database..."):
+                    seed_source_database(int(seed_count))
+                    st.success(f"Seeded {seed_count} rows!")
+                    time.sleep(0.6)
+                    st.rerun()
 
-    st.divider()
-    st.caption("🔒 **Security Specs:**")
-    st.caption("• pyffx FF3-1 (FPE)")
-    st.caption("• HMAC-SHA256 Tokenization")
-    st.caption("• AES-256-GCM Secure Vault")
-    st.caption("• Immutable Append-Only Audit")
+    st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; font-size: 0.75rem; color: #94A3B8;">
+            <div style="font-weight: 700; color: #E2E8F0; margin-bottom: 6px;">🔒 Cryptographic Stack:</div>
+            <div>• <span style="color:#38BDF8;">pyffx FF3-1</span> (Format Preserving)</div>
+            <div>• <span style="color:#C084FC;">HMAC-SHA256</span> (Deterministic Token)</div>
+            <div>• <span style="color:#34D399;">AES-256-GCM</span> (Secure Isolated Vault)</div>
+            <div>• <span style="color:#FBBF24;">Immutable Audit</span> (Zero Plaintext Logs)</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # Get live metrics
 src_cnt, prot_cnt, vault_cnt, audit_cnt = get_counts()
 
-# Top metric bar
+# Top KPI Metric Cards Bar
 m1, m2, m3, m4 = st.columns(4)
-m1.metric("Source Plaintext Records", f"{src_cnt:,}")
+m1.metric("Source Raw Records", f"{src_cnt:,}")
 m2.metric("Protected Store Records", f"{prot_cnt:,}")
 m3.metric("Vault Mappings (AES-GCM)", f"{vault_cnt:,}")
-m4.metric("Audit Trail Logs", f"{audit_cnt:,}")
+m4.metric("Audited Events Logged", f"{audit_cnt:,}")
 
-st.divider()
+st.markdown("<div style='margin-bottom: 24px;'></div>", unsafe_allow_html=True)
 
 # ==============================================================================
 # TAB 1: ARCHITECTURE & OVERVIEW
@@ -156,19 +345,21 @@ st.divider()
 if selected_tab == "🏛️ Architecture & Overview":
     st.markdown(
         """
-        <div class="hero-box">
-            <h2 style="margin-top:0; color:#38bdf8;">🏛️ Flyyy Privacy-Preserving Architecture</h2>
-            <p style="color:#cbd5e1; font-size:1.05rem;">
-                Flyyy CDP eliminates raw Personally Identifiable Information (PII) before it enters analytics,
-                marketing automation, or support pipelines. Downstream applications operate on <strong>Format-Preserving Ciphers</strong>
-                and <strong>Deterministic Tokens</strong>, while raw data stays sealed inside an isolated AES-256-GCM encrypted vault.
+        <div class="hero-container">
+            <h2 style="margin: 0 0 10px 0; font-size: 1.6rem; color: #38BDF8;">
+                🏛️ Flyyy Privacy-Preserving Customer Data Platform
+            </h2>
+            <p style="color: #CBD5E1; font-size: 0.98rem; line-height: 1.6; margin-bottom: 0;">
+                Flyyy CDP prevents Personally Identifiable Information (PII) from leaking into analytics, marketing automation, CRM, or support tools.
+                Downstream applications operate exclusively on <strong>Format-Preserving Ciphers</strong> and <strong>Deterministic Tokens</strong>,
+                while raw plaintext is permanently sealed inside an isolated <strong>AES-256-GCM encrypted vault</strong>.
             </p>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.markdown("### 🔄 End-to-End Data Lifecycle Flow")
+    st.markdown("### 🔄 End-to-End Architectural Pipeline")
     st.markdown(
         """
 ```
@@ -208,25 +399,67 @@ if selected_tab == "🏛️ Architecture & Overview":
 
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.info("#### 🔢 1. Format-Preserving Encryption\nEncrypts 10-digit mobile numbers into 10-digit numbers using standard FF3-1/pyffx. Passes legacy schema validations and regex filters without exposing plaintext.")
+        st.markdown(
+            """
+            <div class="card-box">
+                <h4 style="color: #38BDF8; margin-top: 0;">🔢 Format-Preserving Encryption</h4>
+                <p style="font-size: 0.85rem; color: #94A3B8; line-height: 1.5;">
+                    Transforms 10-digit phone numbers into 10-digit ciphertext using standard <strong>pyffx FF3-1</strong>.
+                    Guarantees schema compliance and telephony format validity with zero plaintext leakage.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
     with c2:
-        st.info("#### 🏷️ 2. Deterministic Tokens\nReplaces emails and names with HMAC-SHA256 salted tokens (`EMAIL_...`, `NAME_...`). Preserves joinability across marketing campaigns and analytics.")
+        st.markdown(
+            """
+            <div class="card-box">
+                <h4 style="color: #C084FC; margin-top: 0;">🏷️ Deterministic Tokens</h4>
+                <p style="font-size: 0.85rem; color: #94A3B8; line-height: 1.5;">
+                    Replaces emails and names with salted <strong>HMAC-SHA256 tokens</strong> (<code>EMAIL_...</code>, <code>NAME_...</code>).
+                    Enables joins across datasets without ever disclosing identity.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
     with c3:
-        st.info("#### 🔐 3. Isolated Vault & Gateway\nPlaintext mappings stored using authenticated AES-256-GCM. Plaintext never leaks during campaigns and is revealed strictly via audited RBAC exceptions.")
+        st.markdown(
+            """
+            <div class="card-box">
+                <h4 style="color: #34D399; margin-top: 0;">🔐 Isolated Vault & Gateway</h4>
+                <p style="font-size: 0.85rem; color: #94A3B8; line-height: 1.5;">
+                    Mappings stored using authenticated <strong>AES-256-GCM</strong>.
+                    Campaigns execute blindly through the Privacy Gateway, and plaintext is revealed strictly through audited RBAC exceptions.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
 # ==============================================================================
 # TAB 2: PII DISCOVERY
 # ==============================================================================
 elif selected_tab == "🔍 1. PII Discovery":
-    st.subheader("🔍 Automated PII Ingestion & Discovery")
-    st.markdown("Scan raw source customer datasets using Presidio PII Analyzers and custom regex heuristics to detect sensitive fields.")
+    st.markdown(
+        """
+        <div style="margin-bottom: 16px;">
+            <h3 style="margin:0 0 4px 0; color:#38BDF8;">🔍 Automated PII Ingestion & Discovery</h3>
+            <p style="color:#94A3B8; font-size:0.9rem;">
+                Scan incoming raw customer datasets using Presidio analyzers and regex heuristics to automatically classify sensitive fields.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     with get_db_session() as db:
         source_data = db.query(SourceCustomer).limit(20).all()
         total_source = db.query(SourceCustomer).count()
 
     if total_source == 0:
-        st.warning("Source database is empty. Click 'Seed Data' in the sidebar to populate initial records.")
+        st.warning("⚠️ Source database is empty. Click '🌱 Seed Data' in the left sidebar to generate 50 sample records.")
     else:
         st.caption(f"Showing sample records from `source_customers` ({total_source} total rows):")
         df_source = pd.DataFrame([
@@ -242,10 +475,16 @@ elif selected_tab == "🔍 1. PII Discovery":
         ])
         st.dataframe(df_source, use_container_width=True, hide_index=True)
 
-        st.markdown("---")
-        st.markdown("### 🤖 Run Automated Discovery Scan")
+        st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+        col_scan1, col_scan2 = st.columns([2, 1])
+        with col_scan1:
+            st.markdown("#### 🤖 Run Automated Discovery Scan")
+            st.caption("Analyzes field names and pattern distributions across all columns.")
+        with col_scan2:
+            st.write("")
+            run_scan = st.button("🚀 Run Discovery Scan", type="primary", use_container_width=True)
 
-        if st.button("🚀 Run PII Discovery Scan", type="primary"):
+        if run_scan:
             with st.spinner("Analyzing dataset with Presidio & Regex Heuristics..."):
                 with get_db_session() as db:
                     records = [
@@ -261,7 +500,7 @@ elif selected_tab == "🔍 1. PII Discovery":
                     ]
                     findings = discover_dataset(records)
 
-                st.success("PII Discovery Completed Successfully!")
+                st.success("✅ PII Discovery Completed Successfully!")
 
                 findings_data = []
                 for f in findings:
@@ -277,8 +516,11 @@ elif selected_tab == "🔍 1. PII Discovery":
 
         st.markdown("---")
         with st.expander("🧪 Interactive Single-String PII Sandbox"):
-            test_field = st.text_input("Column / Field Name", value="customer_contact_email")
-            test_val = st.text_input("Sample Value", value="sarah.connor@cyberdyne.io")
+            c_s1, c_s2 = st.columns(2)
+            with c_s1:
+                test_field = st.text_input("Column / Field Name", value="customer_contact_email")
+            with c_s2:
+                test_val = st.text_input("Sample Value", value="sarah.connor@cyberdyne.io")
             if st.button("Analyze Sample"):
                 res = discover_field_pii(test_field, [test_val])
                 st.json(res)
@@ -287,17 +529,24 @@ elif selected_tab == "🔍 1. PII Discovery":
 # TAB 3: POLICY & BATCH ENGINE
 # ==============================================================================
 elif selected_tab == "⚙️ 2. Policy & Batch Engine":
-    st.subheader("⚙️ Protection Policy & Batch Transformation Pipeline")
-    st.markdown("Configure field-level cryptographic policies and execute batch transformations from `source_customers` to `protected_customers`.")
+    st.markdown(
+        """
+        <div style="margin-bottom: 16px;">
+            <h3 style="margin:0 0 4px 0; color:#38BDF8;">⚙️ Protection Policy & Batch Transformation Engine</h3>
+            <p style="color:#94A3B8; font-size:0.9rem;">
+                Configure cryptographic rules and execute high-throughput batch transformations from <code>source_customers</code> to <code>protected_customers</code>.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     with get_db_session() as db:
         get_or_create_default_policies(db)
         policies = db.query(ProtectionPolicy).all()
 
-    st.markdown("### Active Protection Policies")
-    if not policies:
-        st.info("No customized policies found.")
-    else:
+    st.markdown("#### Active Protection Policies")
+    if policies:
         df_pol = pd.DataFrame([
             {
                 "Field": p.field_name,
@@ -309,16 +558,16 @@ elif selected_tab == "⚙️ 2. Policy & Batch Engine":
         ])
         st.dataframe(df_pol, use_container_width=True, hide_index=True)
 
-    st.markdown("---")
-    st.markdown("### ⚡ Execute Batch Protection Job")
-
+    st.markdown("<div style='margin-top: 24px;'></div>", unsafe_allow_html=True)
+    st.markdown("#### ⚡ Trigger Batch Protection Run")
+    
     col_b1, col_b2 = st.columns([2, 1])
     with col_b1:
         batch_size = st.number_input("Batch Size (records per chunk)", min_value=10, max_value=5000, value=1000, step=500)
     with col_b2:
         st.write("")
         st.write("")
-        trigger_batch = st.button("▶️ Trigger Batch Run", type="primary", use_container_width=True)
+        trigger_batch = st.button("▶️ Run Batch Transformation", type="primary", use_container_width=True)
 
     if trigger_batch:
         t0 = time.time()
@@ -327,7 +576,7 @@ elif selected_tab == "⚙️ 2. Policy & Batch Engine":
                 batch_run = run_batch_protection_job(db, batch_size=batch_size)
                 dur_ms = (time.time() - t0) * 1000
 
-            st.success(f"Batch Run `{batch_run.batch_id}` Completed!")
+            st.success(f"🎉 Batch Run `{batch_run.batch_id}` Completed Successfully!")
             
             b_col1, b_col2, b_col3, b_col4 = st.columns(4)
             b_col1.metric("Processed Rows", batch_run.row_count)
@@ -336,7 +585,7 @@ elif selected_tab == "⚙️ 2. Policy & Batch Engine":
             b_col4.metric("Duration (ms)", f"{dur_ms:.2f} ms")
 
     st.markdown("---")
-    st.markdown("### 📋 Recent Batch Runs History")
+    st.markdown("#### 📋 Recent Batch Runs History")
     with get_db_session() as db:
         batch_runs = db.query(BatchRun).order_by(BatchRun.start_time.desc()).limit(10).all()
         if batch_runs:
@@ -360,17 +609,26 @@ elif selected_tab == "⚙️ 2. Policy & Batch Engine":
 # TAB 4: PROTECTED DATA STORE
 # ==============================================================================
 elif selected_tab == "🛡️ 3. Protected Data Store":
-    st.subheader("🛡️ Zero-Plaintext Protected Customer Store")
-    st.markdown("Downstream applications query `protected_customers`. Plaintext names, emails, and mobile numbers are replaced with deterministic tokens and FPE ciphers.")
+    st.markdown(
+        """
+        <div style="margin-bottom: 16px;">
+            <h3 style="margin:0 0 4px 0; color:#38BDF8;">🛡️ Zero-Plaintext Protected Customer Store</h3>
+            <p style="color:#94A3B8; font-size:0.9rem;">
+                Downstream applications query <code>protected_customers</code>. All plaintext PII is replaced with FPE ciphers and HMAC tokens.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    apply_mask = st.toggle("Apply UI Dynamic Presentation Masking (e.g. `J*** D**`, `j***@***.com`)", value=False)
+    apply_mask = st.toggle("🎭 Apply UI Dynamic Presentation Masking (e.g. `J*** D**`, `j***@***.com`)", value=False)
 
     with get_db_session() as db:
         protected_records = db.query(ProtectedCustomer).limit(50).all()
         total_prot = db.query(ProtectedCustomer).count()
 
     if total_prot == 0:
-        st.warning("Protected store is empty. Please run a Batch Job in Tab 2 to protect source records.")
+        st.warning("Protected store is empty. Please run a Batch Job in Tab 2 to transform source records.")
     else:
         table_rows = []
         for p in protected_records:
@@ -391,10 +649,10 @@ elif selected_tab == "🛡️ 3. Protected Data Store":
         df_prot = pd.DataFrame(table_rows)
         st.dataframe(df_prot, use_container_width=True, hide_index=True)
 
-        st.markdown("---")
+        st.markdown("<div style='margin-top: 16px;'></div>", unsafe_allow_html=True)
         c_exp1, c_exp2 = st.columns([3, 1])
         with c_exp1:
-            st.caption(f"Total protected records: {total_prot} | Plaintext leakage: 0.00%")
+            st.caption(f"Showing {len(protected_records)} of {total_prot} protected records • Plaintext Leakage: 0.00%")
         with c_exp2:
             csv_data = df_prot.to_csv(index=False).encode('utf-8')
             st.download_button(
@@ -406,11 +664,11 @@ elif selected_tab == "🛡️ 3. Protected Data Store":
             )
 
         st.markdown("---")
-        st.markdown("### 🔍 Side-by-Side Plaintext vs Protected Inspector")
+        st.markdown("#### 🔍 Side-by-Side Plaintext vs Protected Inspector")
         with get_db_session() as db:
             sample_ids = [p.customer_id for p in protected_records[:20]]
             
-        selected_cid = st.selectbox("Select Customer to Inspect:", options=sample_ids)
+        selected_cid = st.selectbox("Select Customer ID to inspect cryptographic representation:", options=sample_ids)
         if selected_cid:
             with get_db_session() as db:
                 src_rec = db.query(SourceCustomer).filter(SourceCustomer.customer_id == selected_cid).first()
@@ -419,7 +677,7 @@ elif selected_tab == "🛡️ 3. Protected Data Store":
             if src_rec and prot_rec:
                 col_s1, col_s2 = st.columns(2)
                 with col_s1:
-                    st.markdown("#### 🔴 Raw Source DB (Plaintext)")
+                    st.markdown("##### 🔴 Raw Source DB (Plaintext)")
                     st.json({
                         "customer_id": src_rec.customer_id,
                         "name": src_rec.name,
@@ -429,7 +687,7 @@ elif selected_tab == "🛡️ 3. Protected Data Store":
                         "segment": src_rec.segment,
                     })
                 with col_s2:
-                    st.markdown("#### 🟢 Protected Data Store (Zero Plaintext)")
+                    st.markdown("##### 🟢 Protected Data Store (Zero Plaintext)")
                     st.json({
                         "customer_id": prot_rec.customer_id,
                         "name_token": prot_rec.name_token,
@@ -444,15 +702,24 @@ elif selected_tab == "🛡️ 3. Protected Data Store":
 # TAB 5: PRIVACY GATEWAY
 # ==============================================================================
 elif selected_tab == "🚪 4. Privacy Gateway":
-    st.subheader("🚪 Privacy Gateway (Blind Execution & Webhook Engine)")
-    st.markdown("The Privacy Gateway enables business operations (like sending email campaigns or ingesting provider webhooks) **without exposing plaintext PII** to marketing services.")
+    st.markdown(
+        """
+        <div style="margin-bottom: 16px;">
+            <h3 style="margin:0 0 4px 0; color:#38BDF8;">🚪 Privacy Gateway (Blind Execution & Webhook Engine)</h3>
+            <p style="color:#94A3B8; font-size:0.9rem;">
+                Enables downstream marketing and CRM apps to trigger dispatches without seeing real customer emails or phones.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     g_tab1, g_tab2 = st.tabs(["📧 Blind Campaign Dispatch", "↩️ Reverse Bounce Webhook"])
 
     # 1. Blind Campaign Dispatch
     with g_tab1:
-        st.markdown("#### Scenario: Blind Marketing Dispatch")
-        st.caption("Marketing systems dispatch campaigns using only protected tokens. The Gateway securely resolves the recipient in an isolated context, delivers the email, and returns a confirmation with zero plaintext exposure.")
+        st.markdown("#### Scenario: Blind Marketing Campaign Dispatch")
+        st.caption("Marketing systems dispatch campaigns using only protected tokens. The Gateway resolves the recipient in an isolated memory context, delivers the email, and returns a confirmation with zero plaintext exposure.")
 
         with get_db_session() as db:
             token_options = [p.email_token for p in db.query(ProtectedCustomer).limit(20).all()]
@@ -503,13 +770,13 @@ elif selected_tab == "🚪 4. Privacy Gateway":
                             )
 
                             st.success("✅ Blind Campaign Dispatched Successfully!")
-                            st.markdown("**Gateway API Response to Marketing App:**")
+                            st.markdown("**Gateway API Response Returned to Marketing App:**")
                             st.json({
                                 "recipient": selected_token,
                                 "status": "SENT",
                                 "campaign_id": campaign_id,
                                 "timestamp": datetime.utcnow().isoformat(),
-                                "protection_note": "Zero Plaintext Leaked to Caller"
+                                "protection_guarantee": "Zero Plaintext Disclosed to Marketing Service"
                             })
 
     # 2. Reverse Bounce Webhook
@@ -520,7 +787,7 @@ elif selected_tab == "🚪 4. Privacy Gateway":
         mock_email = st.text_input("Provider Bounced Plaintext Email", value="john.doe@example.com")
         bounce_reason = st.selectbox("Bounce Reason", ["MAILBOX_NOT_FOUND", "SPAM_REJECTION", "DOMAIN_UNRESOLVED", "USER_OPT_OUT"])
 
-        if st.button("📩 Process Provider Webhook"):
+        if st.button("📩 Ingest Provider Bounce Webhook"):
             with st.spinner("Reverse resolving email to token..."):
                 with get_db_session() as db:
                     token = reverse_lookup_vault_by_plaintext(db, "EMAIL", mock_email)
@@ -538,7 +805,7 @@ elif selected_tab == "🚪 4. Privacy Gateway":
                         details=f"Reason: {bounce_reason}",
                     )
 
-                st.success("✅ Webhook Ingested and Tokenized!")
+                st.success("✅ Webhook Ingested & Safely Tokenized!")
                 st.json({
                     "bounced_protected_token": prot_id,
                     "event": "BOUNCE",
@@ -551,10 +818,19 @@ elif selected_tab == "🚪 4. Privacy Gateway":
 # TAB 6: CONTROLLED REVEAL
 # ==============================================================================
 elif selected_tab == "🔑 5. Controlled Reveal":
-    st.subheader("🔑 Controlled Reveal & RBAC Exception Gate")
-    st.markdown("Strictly enforces: **Reveal Only by Exception**. Plaintext is unsealed only with an authorized user role, valid business purpose, and documented ticket reference ID.")
+    st.markdown(
+        """
+        <div style="margin-bottom: 16px;">
+            <h3 style="margin:0 0 4px 0; color:#38BDF8;">🔑 Controlled Reveal & RBAC Exception Gate</h3>
+            <p style="color:#94A3B8; font-size:0.9rem;">
+                Strictly enforces: <strong>Reveal Only by Exception</strong>. Plaintext is decrypted only when an authorized role, approved purpose, and documented ticket ID are validated.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    st.markdown("### ⚡ Quick Presets (Click to Test)")
+    st.markdown("#### ⚡ Quick Simulation Presets")
     col_p1, col_p2, col_p3, col_p4 = st.columns(4)
     preset_choice = None
     with col_p1:
@@ -578,6 +854,7 @@ elif selected_tab == "🔑 5. Controlled Reveal":
     default_ticket = preset_choice[2] if preset_choice else "TICKET-1092"
     default_field = preset_choice[3] if preset_choice else "EMAIL"
 
+    st.markdown("<div style='margin-top: 12px;'></div>", unsafe_allow_html=True)
     c_rev1, c_rev2 = st.columns(2)
     with c_rev1:
         subject_id = st.selectbox("Subject Customer ID / Token", options=customer_ids if customer_ids else ["C001"])
@@ -592,7 +869,7 @@ elif selected_tab == "🔑 5. Controlled Reveal":
         )
         ticket_ref = st.text_input("Audit Ticket / Reference ID", value=default_ticket)
 
-    if st.button("🔐 Request Cryptographic Reveal", type="primary", use_container_width=True):
+    if st.button("🔐 Request Cryptographic Plaintext Reveal", type="primary", use_container_width=True):
         valid_purposes = ["CUSTOMER_SUPPORT", "FRAUD_INVESTIGATION", "LEGAL_COMPLIANCE"]
         is_denied = False
         deny_reason = ""
@@ -620,7 +897,6 @@ elif selected_tab == "🔑 5. Controlled Reveal":
                 st.error(f"❌ {deny_reason}")
                 st.caption("Immutable compliance log entry generated with outcome `ACCESS_DENIED`.")
             else:
-                # Find token/cipher to resolve
                 cust = db.query(ProtectedCustomer).filter(ProtectedCustomer.customer_id == subject_id).first()
                 token_to_resolve = subject_id
                 if cust:
@@ -660,10 +936,10 @@ elif selected_tab == "🔑 5. Controlled Reveal":
                     st.success("✅ Access Granted: Plaintext Decrypted Under Strict Audit Reference")
                     st.markdown(
                         f"""
-                        <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; border-radius: 8px; padding: 16px;">
-                            <div style="color: #94a3b8; font-size: 0.85rem;">DECRYPTED PLAINTEXT VALUE ({field_name}):</div>
-                            <div style="font-size: 1.6rem; font-weight: 700; color: #34d399; font-family: monospace;">{plaintext}</div>
-                            <div style="color: #64748b; font-size: 0.75rem; margin-top: 8px;">Ticket: {ticket_ref} | Purpose: {purpose} | Actor: {actor_role}</div>
+                        <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(15, 23, 42, 0.8)); border: 1px solid #10B981; border-radius: 12px; padding: 20px; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2);">
+                            <div style="color: #94A3B8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700;">DECRYPTED PLAINTEXT VALUE ({field_name}):</div>
+                            <div style="font-size: 1.8rem; font-weight: 800; color: #34D399; font-family: 'JetBrains Mono', monospace; margin: 6px 0;">{plaintext}</div>
+                            <div style="color: #64748B; font-size: 0.78rem; margin-top: 8px;">Ticket: <strong style="color:#CBD5E1;">{ticket_ref}</strong> | Purpose: <strong style="color:#CBD5E1;">{purpose}</strong> | Actor: <strong style="color:#CBD5E1;">{actor_role}</strong></div>
                         </div>
                         """,
                         unsafe_allow_html=True,
@@ -673,17 +949,26 @@ elif selected_tab == "🔑 5. Controlled Reveal":
 # TAB 7: IMMUTABLE AUDIT TRAIL
 # ==============================================================================
 elif selected_tab == "📜 6. Compliance Audit Trail":
-    st.subheader("📜 Immutable Compliance & Access Audit Trail")
-    st.markdown("Every reveal attempt, blind campaign dispatch, and batch run is permanently recorded in an append-only audit trail.")
+    st.markdown(
+        """
+        <div style="margin-bottom: 16px;">
+            <h3 style="margin:0 0 4px 0; color:#38BDF8;">📜 Immutable Compliance & Access Audit Trail</h3>
+            <p style="color:#94A3B8; font-size:0.9rem;">
+                Append-only ledger of all access attempts, blind executions, reveal requests, and automated batch jobs.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     with get_db_session() as db:
         all_actors = [r[0] for r in db.query(AuditLog.actor).distinct().all()]
 
     c_flt1, c_flt2 = st.columns(2)
     with c_flt1:
-        outcome_filter = st.selectbox("Filter Outcome", ["ALL", "ALLOWED", "ACCESS_DENIED"])
+        outcome_filter = st.selectbox("Filter by Outcome", ["ALL", "ALLOWED", "ACCESS_DENIED"])
     with c_flt2:
-        actor_filter = st.selectbox("Filter Actor", ["ALL"] + all_actors)
+        actor_filter = st.selectbox("Filter by Requesting Actor", ["ALL"] + all_actors)
 
     with get_db_session() as db:
         query = db.query(AuditLog).order_by(AuditLog.timestamp.desc())
@@ -702,7 +987,7 @@ elif selected_tab == "📜 6. Compliance Audit Trail":
     col_a2.metric("Authorized Actions", allowed_count)
     col_a3.metric("Blocked Breach Attempts", denied_count)
 
-    st.markdown("---")
+    st.markdown("<div style='margin-top: 16px;'></div>", unsafe_allow_html=True)
     if not logs:
         st.info("No audit logs matching current filter.")
     else:
@@ -725,5 +1010,6 @@ elif selected_tab == "📜 6. Compliance Audit Trail":
         st.dataframe(df_logs, use_container_width=True, hide_index=True)
 
 # Footer
+st.markdown("<div style='margin-top: 40px;'></div>", unsafe_allow_html=True)
 st.divider()
 st.caption("Flyyy.ai Privacy-Preserving Customer Data Platform • Format-Preserving Encryption & Isolated Vault Architecture")
